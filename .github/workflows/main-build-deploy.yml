@@ -1,0 +1,36 @@
+name: Build & Push To Docker Hub, and Release to Heroku Container Service 
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: '0'
+    - name: create version, push tag
+      id : buildtag
+      uses: anothrNick/github-tag-action@1.23.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        INITIAL_VERSION : 1.1.0
+        DEFAULT_BUMP : patch
+        TAG_CONTEXT : branch
+    - name: get version
+      run: echo ${{steps.buildtag.outputs.tag}}
+    - name: create and push docker build
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: cybergroupignite/example-project
+        tags: v${{steps.buildtag.outputs.tag}}
+    - name: deploy to heroku app
+      uses: akhileshns/heroku-deploy@v3.2.6
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "ignite-example-project"
+        heroku_email: "bijay.shah@cygrp.com"
+        usedocker: true
