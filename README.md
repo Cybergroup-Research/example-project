@@ -31,5 +31,5 @@ This example repository will create and push docker image to docker hub, and rel
     DATABASE_URL: "<Database URL>"
     START_MODE: "BUILD"
     CREDENTIAL_SECRET: "<Optional, if credential key were defined when project was created>"
-    DB_SSL_OPTION: "<Optional, default is **true**, if your postgres server don't support SSL then use **false**>"
+    DB_SSL_OPTION: "<Optional, default is true, if your postgres server don't support SSL then use false>"
     
