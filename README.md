@@ -16,8 +16,7 @@ This example repository will create and push docker image to docker hub, and rel
          repository: cybergroupignite/example-project
          tags: v${{steps.buildtag.outputs.tag}}
          
- 
-# Git Action To Release Build to Heroku
+# Sample Git Action To Release Build to Heroku
     - name: deploy to heroku app
           uses: akhileshns/heroku-deploy@v3.2.6
           with:
@@ -25,7 +24,14 @@ This example repository will create and push docker image to docker hub, and rel
             heroku_app_name: "ignite-example-project"
             heroku_email: "bijay.shah@cygrp.com"
             usedocker: true
-           
+            
+# Sample Git Action To Release Build to Azure
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'ignite-example-project'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_PRODUCTION }}
+        images: 'cybergroupignite/example-project:v${{steps.buildtag.outputs.tag}}'
+        
 # Environment To Start Application
     IGNITE_EDITOR_API_SECRET: "<Your Ignite Secret key>"
     DATABASE_URL: "<Database URL>"
