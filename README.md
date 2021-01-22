@@ -2,7 +2,7 @@
 This example repository will create and push docker image to docker hub, and release to Heroku.
 
 # Dockerfile to Build Docker Image
-    FROM cybergroupignite/runtime:rc-dev-1.0.24-98aff1b
+    FROM cybergroupignite/runtime:v2.0.0
     WORKDIR /usr/src/nodered
     COPY . ./build
     RUN npm run compile
