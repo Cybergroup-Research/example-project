@@ -7,6 +7,14 @@ This example repository will create and push docker image to docker hub, and rel
     COPY . ./build
     RUN npm run compile
 
+# Dockerfile to Build Docker Image With Custom Build Version
+    FROM cybergroupignite/runtime:v2.0.0
+    ARG BUILD_VERSION
+    WORKDIR /usr/src/nodered
+    RUN echo BUILD_VERSION=${BUILD_VERSION} >> .env
+    COPY . ./build
+    RUN npm run compile
+    
 # Git Action To Create Build & Push to Docker Hub
     - name: create and push docker build
        uses: docker/build-push-action@v1
