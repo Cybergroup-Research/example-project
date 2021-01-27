@@ -27,6 +27,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: cybergroupignite/example-project
         tags: v${{steps.buildtag.outputs.tag}}
+        build_args: build_tag=${{steps.buildtag.outputs.tag}}
     - name: deploy to heroku app
       uses: akhileshns/heroku-deploy@v3.2.6
       with:
